@@ -38,9 +38,7 @@ export default class ImageSend extends React.Component {
   }
 
   onInput(e) {
-    const createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
     const files = e.target.files;
-    const image_url = createObjectURL(files[0]);
 
     this.setState({
       imageDate: files[0]
@@ -60,7 +58,6 @@ export default class ImageSend extends React.Component {
             capture="camera"
             onInput={this.onInput}
           />
-          {/* <input type="file" id="img_file" name="img_file" onInput={this.onInput} /> */}
           <button onClick={this.onSubmit}>送信</button>
           {receiveDate && <img src={`data:image/png;base64,${receiveDate}`} />}
         </div>

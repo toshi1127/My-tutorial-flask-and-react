@@ -4,7 +4,7 @@ import time
 import numpy as np
 import cv2
 import base64
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, session, jsonify, Response, send_file
+from flask import Flask, render_template, request, redirect, url_for, Response
 from io import BytesIO
 from werkzeug import secure_filename
 import math
@@ -27,12 +27,6 @@ def allowed_file(filename):
 @app.route('/')
 def index():
     return render_template('index.html')
-
-@app.route('/api/json')
-def api_json():
-    response = jsonify({"targets": ["A001", "B001", "AB001", "BA001"]})
-    response.status_code = 200
-    return response
 
 @app.route('/send', methods=['GET', 'POST'])
 def send():
@@ -61,14 +55,6 @@ def send():
 
     else:
         return redirect(url_for('index'))
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-@app.route('/image/<filename>')
-def image_file(filename):
-    return send_from_directory(app.config['IMAGE_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.debug = True
